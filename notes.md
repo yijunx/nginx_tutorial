@@ -47,6 +47,13 @@ nginx -s reload
 
 #### as a layer 7 proxy ####
 
+- docker build the image with 
+
+```
+cd sample_app_to_dockerize
+docker build -t sample_node_app .
+```
+
 - proxy to 4 backend nodejs app with docker, start the service by
 
 ```
