@@ -264,4 +264,39 @@ Connection: close
 we are with APPID: 5555Connection closed by foreign host.
 ```
 
-- 
+## https / http2 and all those stuff ##
+
+* http:
+    * router settings at 192.168.0.1 (based on the internet provider)
+    * login 
+    * port forwarding to allow local ip at port 80
+    * go to noip.com and ask for an address and target the ip 
+
+* https:
+    * brew install letsencrypt
+    * sudo certbot certonly --standalone
+    * key in the address provided by the noip.com
+    * 2 keys will be provided
+        * public key: /etc/letsencrypt/live/testnginx.zapto.org/fullchain.pem
+        * private key: /etc/letsencrypt/live/testnginx.zapto.org/privkey.pem
+    * nginx.conf: add `listen 443 ssl;` and ssl_cert, ssl_cert_key
+        * add ssl_protocals TLSv1.3 to make it using TLS1.3 only (else TLS1.2)
+        * add http2 behind `listen 443 ssl` to make it http2
+
+    ```
+    server {
+        listen 80;
+        listen 443 ssl http2;
+    
+        ssl_certificate /etc/letsencrypt/live/testnginx.zapto.org/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/testnginx.zapto.org/privkey.pem;
+        
+        ssl_protocols TLSv1.3;
+
+        location / {
+            proxy_pass http://allbackend/;
+        }
+    ...
+    }
+
+    ```
