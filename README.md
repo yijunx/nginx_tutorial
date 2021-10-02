@@ -281,10 +281,10 @@ we are with APPID: 5555Connection closed by foreign host.
   - brew install letsencrypt
   - sudo certbot certonly --standalone
   - key in the address provided by the noip.com (and copy paste the hostname)
-  - 2 keys will be provided
+  - a few keys will be provided (they are links in that folder!!)
     - public key: /etc/letsencrypt/live/<hostname>/fullchain.pem
     - private key: /etc/letsencrypt/live/<hostname>/privkey.pem
-    - there is also a cert.pem (this file can be used as public key to decode whatever encoded with privkey.pem, jwt.io will work. However, pyJWT will not work, pyJWT requires `openssl x509 -pubkey -noout -in auth-test.freedynamicdns.net/cert1.pem` to produce the pubkey.pem, which can be used for decoding..)
+    - there is also a cert.pem (this file can be used as public key to decode whatever encoded with privkey.pem, jwt.io will work. However, pyJWT will not work, pyJWT requires `openssl x509 -pubkey -noout -in cert1.pem` to produce the pubkey.pem, which can be used for decoding. before that need to find the real place of the `cert1.pem` via `ls -l`, then `cp` out, and convert it into a `pubkey.pem`)
   - nginx.conf: add `listen 443 ssl;` and ssl_cert, ssl_cert_key
     - add ssl_protocals TLSv1.3 to make it using TLS1.3 only (else TLS1.2)
     - add http2 behind `listen 443 ssl` to make it http2
