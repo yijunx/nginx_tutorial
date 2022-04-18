@@ -277,8 +277,14 @@ we are with APPID: 5555Connection closed by foreign host.
   - go to noip.com and ask for an address and target the ip
 
 - https:
+  - docker way
+        
+        sudo docker run -it --rm --name certbot \
+            -v "/etc/letsencrypt:/etc/letsencrypt" \
+            -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+            certbot/certbot certonly
 
-  - brew install letsencrypt
+  - not-docker-way: brew install letsencrypt
   - sudo certbot certonly --standalone
   - key in the address provided by the noip.com (and copy paste the hostname)
   - a few keys will be provided (they are links in that folder!!)
